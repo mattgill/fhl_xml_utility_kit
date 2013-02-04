@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Schema file for XML version of FHL rosters.
+ 
+ @author Matt Gill <code@mattgill.net>
+ @copyright Copyright (c) 2007-2013, Matt Gill
+ May be modified and distributed freely so long as credit is given to the original author for work completed.
+ 
+--> 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="league">
+            <xs:annotation>
+            <xs:documentation>
+                League is the root element. It is the parent to teams. The name of the league and the date the XML roster file was created are required as attirbutes. It is expected to hold at least one team, while it is limitless on the upper end.
+            </xs:documentation>
+            <xs:documentation>
+                   This schema is designed to take the static output of the FHL Sim program (www.fhlsim.com) rosters page and house that information in a manipulatable form.
+             </xs:documentation>
+             <xs:documentation>
+                    Schema created by Matt Gill [code@mattgill.net]. Copyright 2007-2013.
+             </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+            <xs:element name="team" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        One team is required. As many teams as desired can occur. Each team consists of a Pro and a Farm section (elements). 
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="pro">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Pro contains players on the pro roster. While conceivably there should be 20 players on a pro roster at a minimum, it is possible to save lines with no players on the pro squad. In addition, a team may be an expansion team and need to be populated with players. As such, no players are required, but players can occur an unlimited amount.   
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType><xs:sequence><xs:element ref="player" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType>
+                        </xs:element>
+                        <xs:element name="farm">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Farm contains players on the farm team. Does not need to actually have players, as a GM might have all this players on the Pro roster. Can have an unlimited number of players, however. 
+                                </xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType><xs:sequence><xs:element ref="player" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="name" use="required"><xs:annotation><xs:documentation>required. Name of the team.</xs:documentation></xs:annotation></xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="leagueName" use="required"><xs:annotation><xs:documentation>required. Name of the league.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="dateLine" use="required"><xs:annotation><xs:documentation>required. Contains a date that the XML file was produced. Ideally this is the same date that the FHL program created the HTML output.</xs:documentation></xs:annotation></xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="player">
+        <xs:annotation>
+            <xs:documentation>
+                Player element contains all the information on a standard FHL Rosters output HTML page in attribute form. 
+            </xs:documentation>
+        </xs:annotation>    
+        <xs:complexType>
+            <xs:attribute name="number" use="required"><xs:annotation><xs:documentation>required. Jersey number player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="name" use="required"><xs:annotation><xs:documentation>required. Name of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="position" use="required"><xs:annotation><xs:documentation>required. Position of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="shoots" use="required"><xs:annotation><xs:documentation>required. Hand the player shoots with.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="condition" use="required"><xs:annotation><xs:documentation>required. Condition of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="injury" use="required"><xs:annotation><xs:documentation>required. Injury status of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="intensity" use="required"><xs:annotation><xs:documentation>required. Intensity of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="speed" use="required"><xs:annotation><xs:documentation>required. Speed of player. </xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="strength" use="required"><xs:annotation><xs:documentation>required. Strength of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="endurance" use="required"><xs:annotation><xs:documentation>required. Endurance of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="durability" use="required"><xs:annotation><xs:documentation>required. Durability of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="discipline" use="required"><xs:annotation><xs:documentation>required. Discipline of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="skating" use="required"><xs:annotation><xs:documentation>required. Skating ability of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="passing" use="required"><xs:annotation><xs:documentation>required. Passing ability of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="puck_control" use="required"><xs:annotation><xs:documentation>required. Puck control rating of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="defense" use="required"><xs:annotation><xs:documentation>required. Defensive rating of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="scoring" use="required"><xs:annotation><xs:documentation>required. Scoring ability of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="experience" use="required"><xs:annotation><xs:documentation>required. Experience rating of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="leadership" use="required"><xs:annotation><xs:documentation>required. Leadership rating of player.</xs:documentation></xs:annotation></xs:attribute>
+            <xs:attribute name="overall" use="required"><xs:annotation><xs:documentation>required. Overall rating of player.</xs:documentation></xs:annotation></xs:attribute>
+            </xs:complexType>
+    </xs:element>
+</xs:schema>

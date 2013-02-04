@@ -1,0 +1,15 @@
+body {font-size: 12px; font-family: verdana;}
+h1 {font-size: 24px;}
+table {border: 1px solid #f1f1f1;}
+table tr td {padding-left: 5px; padding-right: 5px; padding-top: 1px; padding-bottom: 1px; }
+table tr {font-size: 12px;}
+table tr .a {background-color: #DDDDDD; color: black;}
+table tr .b {background-color: #FFFFFF; color: black;}
+
+.teamHeader {font-size: 22px;}
+.rosterHeader {font-size: 14px; color: #ffffff; background-color: #65709E; font-weight: bold; }
+.colHeader {background-color: #BBBBBB;}
+.std {background-color: #eeeeFF;}
+.alt {background-color: #eeeeee;}
+.backToTop {font-size: 10px}
+

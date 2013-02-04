@@ -1,0 +1,24 @@
+<html><head><title>League Rosters</title>
+<script type="text/javascript" src="sarissa-compressed.js"></script>
+<script type="text/javascript" src="funcs.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body onLoad="init();createRosters();">
+<form name="selects">
+Sort by: <select name="ratingSelect" id="ratingSelect" onchange="setRating(this.value);createRosters();">
+<option value="number">Number</option><option value="name">Name</option><option value="position">Position</option><option value="shoots">Hand</option><option value="condition">Condition</option>
+<option value="injury">Injury</option><option value="intensity">Intensity</option><option value="speed">Speed</option><option value="strength">Strength</option><option value="endurance">Endurance</option>
+<option value="durability">Durability</option><option value="discipline">Discipline</option><option value="skating">Skating</option><option value="passing">Passing</option><option value="puck_control">Puck Control</option>
+<option value="defense">Defense</option><option value="scoring">Scoring</option><option value="experience">Experience</option><option value="leadership">Leadership</option><option value="overall">Overall</option>
+</select>
+Teams/League: <select name="leagueListSelect" id="leagueListSelect"  onchange="setLeagueList(this.value);createRosters();">
+<option value="false">By Team</option><option value="true">League List</option>
+</select>
+Pro/Farm (Teams Only):  <select name="displaySelect" id="displaySelect" onchange="setDisplay(this.value);createRosters();">
+<option value="full">Pro and Farm Rosters</option><option value="pro">Pro Rosters Only</option><option value="farm">Farm Rosters Only</option>
+</select>
+</form>
+<div id="results">
+</div>
+</body>
+</html>
