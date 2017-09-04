@@ -7,45 +7,73 @@
 //store variables
 //rating holds the rating that the rosters will be sorted on
 var rating = '';
+
 //sort order is either ascending or descending  and will be set when the rating is selected. certain ratings are logically apt to be sorted in certain orders
 var sortOrder = 'ascending';
+
 //display can be 'full', 'pro', or 'farm'. Full will display both pro and farm rosters, while 'pro' will display only pro rosters and 'farm' will display only farm rosters
 //set it to 'full' on initialization
 var display = 'full';
+
 //league list will hold if players are displayed in a massive list or by teams (set to 'false' if 'by teams' is desired)
 var leagueList = 'false';
+
 //teamSelect is the name of the team to be shown 
 //if value of teamSelect is "All", then all teams will be shown
 var teamSelect = 'All';
+
 //teamSelectIndex holds the selectedIndex position of the team selected so it can be highlighted once the list is recreated after XSLT transformation
 var teamSelectIndex = '0';
-//placeholder for XML file
+
+//placeholder for XML, XSL files
 var xml;
-//placeholder for XSL file
-var xsl;
-	
-	
-//this function allows the retrieval of an XML document
-//getXmlDocument written by Emmanuil Batsis for the artcie "Sarissa to the Rescue" - http://www.xml.com/pub/a/2005/02/23/sarissa.html
-function getXmlDocument(fileUrl)
+var xsl;	
+
+// next two functions from https://www.w3schools.com/xml/xsl_client.asp
+function loadXMLDoc(filename)
 {
-    var xmlDocument = Sarissa.getDomDocument();
-    xmlDocument.async = false;
-    xmlDocument.load(fileUrl);
-    if (Sarissa.getParseErrorText(xmlDocument) != Sarissa.PARSED_OK)
-    {
-	    alert(Sarissa.getParseErrorText(xmlDocument));
-    }
-	return xmlDocument;
+	if (window.ActiveXObject)
+	{
+		xhttp = new ActiveXObject("Msxml2.XMLHTTP");
+	}
+	else 
+	{
+		xhttp = new XMLHttpRequest();
+	}
+	xhttp.open("GET", filename, false);
+	try {xhttp.responseType = "msxml-document"} catch(err) {} // Helping IE11
+	xhttp.send("");
+	return xhttp.responseXML;
 }
+
+function displayResult(xmlFile, xslFile, divId)
+{
+	xml = loadXMLDoc(xmlFile);
+	xsl = loadXMLDoc(xslFile);
+	// code for IE
+	if (window.ActiveXObject || xhttp.responseType == "msxml-document")
+	{
+		ex = xml.transformNode(xsl);
+		document.getElementById(divId).innerHTML = ex;
+	}
+	// code for Chrome, Firefox, Opera, etc.
+	else if (document.implementation && document.implementation.createDocument)
+	{
+		xsltProcessor = new XSLTProcessor();
+		xsltProcessor.importStylesheet(xsl);
+		resultDocument = xsltProcessor.transformToFragment(xml, document);
+		document.getElementById(divId).appendChild(resultDocument);
+	}
+}
+	
 //this function will be run on the loading of the body to set the framework for future operations
 //this function will also update the "Sort By" select box as well as per comment below
 function init()
 {
 	//grab the XML we will need
-	xml       = getXmlDocument("rosters.xml");
+	xml       =  loadXMLDoc("rosters.xml");
 	//grab the stylesheet we will use as well
-	xsl       = getXmlDocument("rosters.xsl");
+	xsl       =  loadXMLDoc("rosters.xsl");
 	//update the sort by select boxes to reflect that the way the XML data is stored is sorted by position
 	document.selects.ratingSelect.selectedIndex = 2;
 }
